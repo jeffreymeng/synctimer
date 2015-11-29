@@ -1,87 +1,72 @@
-<html>
+﻿<html>
 	<head>
-		<link rel="stylesheet" media="screen" type="text/css" href="css/datepicker.css" />
-		<script type="text/javascript" src="js/datepicker.js"></script>
-		<!-- CDN's from codepack (http://jeffreymeng.github.io/codepack) -->
-		<!-- Bootstrap 3 CSS -->
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap 3 Optional theme -->
+		<script src="http://momentjs.com/downloads/moment.min.js"></script>
 		<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script src="http://momentjs.com/downloads/moment.js"></script>
-		<!-- Bootstrap 3 Compiled and minified JS -->
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<link rel="stylesheet" href="style.css">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<!-- jQuery 2.1.4 minified -->
-		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
 	</head>
 	<body>
-		<div calss="container">
+		<div class="container">
 			<div class="col-lg-12">
-				<form role="form">
-					<div class="form-group">
-						<label for="code">Please enter a timer name:</label>
-						<input type="text" class="form-control" id="code">
+				<br>
+				<h1 class="text-center">Synchronised Timer</h1>
+				<hr>
+				<h3 class="text-center">Hello.</h1><br><p class="text-center">
+					<a role="button" data-toggle="collapse" href="#create" aria-expanded="false" aria-controls="create" id="createatimerbutton">Create a timer</a> or <a role="button" data-toggle="collapse" href="#enter" aria-expanded="false" aria-controls="enter">Enter a Code</a></p>
+					<div class="collapse" id="create">
+						<div>
+							<form>
+								<input class="form-control" type="text" placeholder="Choose a timer ID. NOTE:Anyone with this timer ID can view your timer." id"timerid">
+								<br>
+								<br>
+
+								<input class="form-control" type="date" id="timerdate">
+								<br>
+								<br>
+
+								<input class="form-control" type="time" id="timertime">
+								<br>
+								<br>
+
+								<input class="form-control" type="text" id="timertime" placeholder="Timer title Ex Days until thanksgiving.(This will show up on the timer page)">
+								<br>
+								<br>
+
+								<input type="submit" class="btn btn-sucuess form-control" style="background-color:green;color:white;" value="submit" id="submitcode" class="center">
+							</form>				
+						</div>
 					</div>
-					<button type="submit" class="btn btn-default">Enter</button>
-				</form>
-				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#create" aria-expanded="false" aria-controls="create">
-					Create a timer
-				</button>
-
-				<div id="create" class="collapse">
-					<h1>Create a timer</h1>
-					<form role="form">
-						<div class="form-group">
-							<label for="name">Please choose a timer name:</label>
-							<input type="text" class="form-control" id="name">
+					<div class="collapse" id="enter">
+						<div>
+							<form>
+								<input class="form-control" type="text" placeholder="Enter your ID here" id="code">
+								<br>
+								<input type="submit" class="btn btn-sucuess form-control" style="background-color:green;color:white;" value="submit" id="entercode">
+							</form>
 						</div>
-						<div class="form-group">
-							<label for="title">Please choose a timer header(title):</label>
-							<input type="text" class="form-control" id="title">
-						</div>
-						<div class="form-group">
-							<label for="code">What time do you want the timer to countdown from?:</label>
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Username" id="countdown" aria-describedby="basic-addon1">
-								<span class="input-group-addon" id="basic-addon1">Seconds</span>
-
-							</div>
-						</div>
-
-					</form>
-				</div>
-				<div id="timer">
-					<p>Please enter the code and press the above button.</p>
+					</div>
 				</div>
 			</div>
+			<footer class="affix navbar-fixed-bottom text-center" id="footer">
+				<div class="container">
+					<div class="col-lg-12">
+						<p>copyright &copy; 2015 Jeffrey Meng
+					</div>
+				</div>
+			</footer>	
 		</div>
-		<script>
-		$('input').DatePicker(options);
-		if (timer === true) {
-		$(document).ready(timerstart);
-	}
-		function timerstart() {
+		<script src="index.js"></script>
 
-		};
-		function create(name, title, start, end) {
-			var fb = new Firebase("https://synctimer.firebaseio.com");
-			var seconds = moment().format("ss");   
-			fb.once("value", function(snapshot) {
-
-				if (snapshot.child(name).exists() ) {
-					alert("please choose a new ID, your id already exists.")
-				} else {
-					fb.child(name).set({
-					    "start": start,
-					    "end": end,
-					    "title": title,
-					});;
-				}
-			});
-
-		}
-
-		</script>
 	</body>
 </html>
